@@ -1,0 +1,12 @@
+.profile__like {
+    width: 22px;
+    height: 19px;
+    border: none;
+    background-color: #fff;
+    background-image: url(../../../image/Vector2.svg);
+    align-self: center;
+}
+
+.profile__like:hover {
+    opacity: 0.5;
+}
