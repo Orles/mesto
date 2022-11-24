@@ -10,6 +10,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    max-width: 189px;
 }
 
 @media (min-width: 1024px) {
@@ -18,5 +19,6 @@
         line-height: 48px;
         margin-bottom: 16px;
         margin-right: 18px;
+        max-width: 294px;
     }
 }
