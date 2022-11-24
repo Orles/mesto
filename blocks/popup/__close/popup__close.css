@@ -10,6 +10,7 @@
     background-repeat: no-repeat;
     margin-bottom: 16px;
     margin-left: auto;
+    cursor: pointer;
 }
 
 .popup__close:hover {

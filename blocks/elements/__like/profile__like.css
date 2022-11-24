@@ -5,6 +5,7 @@
     background-color: #fff;
     background-image: url(../../../image/Vector2.svg);
     align-self: center;
+    cursor: pointer;
 }
 
 .profile__like:hover {

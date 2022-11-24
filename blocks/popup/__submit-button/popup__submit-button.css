@@ -9,6 +9,7 @@
     background-color: #000;
     height: 46px;
     border-radius: 2px;
+    cursor: pointer;
 }
 
 .popup__submit-button:hover {
