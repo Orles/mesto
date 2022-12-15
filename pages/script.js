@@ -20,6 +20,8 @@ const popup = document.querySelectorAll('.popup');
 const buttonsDeletingCard = document.querySelectorAll('.elements__delete');
 const picture = document.querySelectorAll('.elements__mask-group');
 const elementTitle = element.querySelectorAll('.elements__title');
+const picturePopupPlace = popupImg.querySelector('.popup__img');
+const titlePopupPlace = popupImg.querySelector('.popup__subtitle');
 
 //открытие и закрытие popup
 
@@ -54,7 +56,6 @@ function submitEditProfilePopup(evt) {
     name.textContent = userName.value;
     subtitle.textContent = aboutMe.value;
     closePopup(popupProfile);
-    return
 }
 
 formEditProfilePopup.addEventListener('submit', submitEditProfilePopup);
@@ -105,13 +106,13 @@ function addElement(evt) {
     inputTitle.value = '';
     inputLink.value = '';
     closePopup(popupPlace);
-    return
 }
 
 function createCard(imgUrl, title) {
     const element = elementTemplate.querySelector('.elements__element').cloneNode(true);
-    element.querySelector('.elements__mask-group').src = imgUrl;
-    element.querySelector('.elements__mask-group').alt = title;
+    const img = element.querySelector('.elements__mask-group');
+    img.src = imgUrl;
+    img.alt = title;
     element.querySelector('.elements__title').textContent = title;
     element.querySelector('.profile__like').addEventListener('click', function (evt) {
         evt.target.classList.toggle('profile__like_active');
@@ -121,9 +122,9 @@ function createCard(imgUrl, title) {
     });
     element.querySelector('.elements__img-button').addEventListener('click', function() {
         openPopup(popupImg);
-        popupImg.querySelector('.popup__img').src = imgUrl;
-        popupImg.querySelector('.popup__img').alt = title;
-        popupImg.querySelector('.popup__subtitle').textContent = title;
+        picturePopupPlace.src = imgUrl;
+        picturePopupPlace.alt = title;
+        titlePopupPlace.textContent = title;
     });
     return element;
 };
