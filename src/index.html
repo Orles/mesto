@@ -4,17 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
     <title>Mesto</title>
 </head>
 
 <body class="body">
     <header class="header">
-        <img src="./image/logo.svg" alt="Mesto" class="logo">
+        <img src="<%=require('./image/logo.svg')%>" alt="Mesto" class="logo">
     </header>
     <main class="main">
         <section class="profile">
-            <img src="./image/image.jpg" alt="Профиль" class="profile__avatar">
+            <img src="<%=require('./image/image.jpg')%>" alt="Профиль" class="profile__avatar">
             <div class="profile__info">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
                 <button class="profile__edit-button" type="button"></button>
@@ -32,8 +31,10 @@
             <form class="popup__form popup__form_name" name="form">
                 <h2 class="popup__edit-profile">Редактировать профиль</h2>
                 <fieldset class="popup__field">
-                    <input type="text" class="popup__input popup__input_firstname" placeholder="Имя" name="firstname">
-                    <input type="text" class="popup__input popup__input_about-me" placeholder="О себе" name="about-me">
+                    <input type="text" class="popup__input popup__input_firstname" id="firstname-input" placeholder="Имя" name="firstname" minlength="2" maxlength="40" required novalidate pattern="[^a-zA-zа-яА-ЯёЁ\-]" data-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+                    <span class="firstname-input-error popup__error"></span>
+                    <input type="text" class="popup__input popup__input_about-me" id="about-me" placeholder="О себе" name="about-me" minlength="2" maxlength="200" required novalidate pattern="[^a-zA-zа-яА-ЯёЁ\-]" data-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+                    <span class="about-me-error popup__error"></span>
                 </fieldset>
                 <fieldset class="popup__field">
                     <button class="popup__submit-button" type="submit">Сохранить</button>
@@ -47,9 +48,10 @@
             <form class="popup__form popup__form_place" name="form">
                 <h2 class="popup__edit-profile">Новое место</h2>
                 <fieldset class="popup__field">
-                    <input type="text" class="popup__input popup__input_title" placeholder="Название" name="title">
-                    <input type="text" class="popup__input popup__input_link" placeholder="Ссылка на картинку"
-                        name="link">
+                    <input type="text" class="popup__input popup__input_title" id="title-input" placeholder="Название" name="title" required minlength="2" maxlength="30" novalidate pattern="^[a-zA-zа-яА-ЯёЁ\-]" data-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+                    <span class="title-input-error popup__error"></span>
+                    <input type="url" class="popup__input popup__input_link" id="link-input" placeholder="Ссылка на картинку" name="link" required novalidate>
+                    <span class="link-input-error popup__error"></span>
                 </fieldset>
                 <fieldset class="popup__field">
                     <button class="popup__submit-button" type="submit">Создать</button>
@@ -77,7 +79,6 @@
             <p class="popup__subtitle"></p>
         </div>
     </div>
-    <script src="./pages/script.js"></script>
 </body>
 
 </html>
