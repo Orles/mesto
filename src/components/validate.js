@@ -11,13 +11,13 @@ const hideInputError = (formElement, inputElement) => {
 };
 
 const isValid = (formElement, inputElement) => {
-   
+    if ((inputElement.type === 'text')&&(inputElement.validity.patternMismatch)) {
+        inputElement.setCustomValidity(inputElement.dataset.errorMessage);
+    } else {
+        inputElement.setCustomValidity("");
+    };
+
     if (!inputElement.validity.valid) {
-        if ((inputElement.type === 'text')&&(inputElement.validity.patternMismatch)) {
-            inputElement.setCustomValidity(inputElement.dataset.error); //Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы.
-        } else {
-            inputElement.setCustomValidity("");
-        };
         showInputError(formElement, inputElement, inputElement.validationMessage);
     } else {
         hideInputError(formElement, inputElement);
@@ -36,6 +36,6 @@ const setEventListeners = (formElement) => {
 export const enableValidation = () => {
     const formList = Array.from(document.querySelectorAll('.popup__form'));
     formList.forEach((formElement) => {
-      setEventListeners(formElement);
+        setEventListeners(formElement);
     });
 };

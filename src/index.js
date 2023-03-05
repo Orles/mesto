@@ -14,6 +14,32 @@ const addButton = document.querySelector('.profile__add-button');
 const formEditProfilePopup = document.querySelector('.popup__form_name');
 const formPlace = document.querySelector('.popup__form_place');
 const popup = document.querySelectorAll('.popup');
+const popupContainer =  document.querySelectorAll('.popup__container');
+
+// закрытие попапа на esc
+
+document.addEventListener('keydown', (evt) => {
+    console.log(evt.keycode);
+    if (evt.key === 'Escape') {
+        popup.forEach( (items) => {
+            items.classList.remove('popup_opened');
+        });
+    };
+});
+
+//закрытие на оверлей
+
+const popupContainerChildNodes = popupContainer.forEach((items) => {
+    return items.childNodes;
+})
+
+popup.forEach( (iti) => {
+    iti.addEventListener('click', (evt) => {
+        if (evt.target.classList.contains('popup')) {
+            iti.classList.remove('popup_opened');
+        }
+    })
+});
 
 //открытие и закрытие popup
 
@@ -44,7 +70,7 @@ function submitEditProfilePopup(evt) {
 
 formEditProfilePopup.addEventListener('submit', submitEditProfilePopup);
 
-//карточки
+//6 карточек
 
 sheetCards();
 
@@ -55,13 +81,3 @@ formPlace.addEventListener('submit', addElement);
 //валидность 
 
 enableValidation();
-
-// закрытие попапа на esc
-
-document.addEventListener('keydown', (evt) => {
-    if (evt.keycode === 'Escape') {
-        popup.forEach( (items) => {
-            items.classList.remove('popup_opened');
-        });
-    };
-});
