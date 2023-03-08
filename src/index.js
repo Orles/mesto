@@ -8,51 +8,42 @@ const name = document.querySelector('.profile__name');
 const subtitle = document.querySelector('.profile__subtitle');
 const popupProfile = document.querySelector('.popup_profile');
 const buttonOpenEditProfilePopup = document.querySelector('.profile__edit-button');
-const closeButtons = document.querySelectorAll('.popup__close');
 const popupPlace = document.querySelector('.popup_place');
 const addButton = document.querySelector('.profile__add-button');
 const formEditProfilePopup = document.querySelector('.popup__form_name');
 const formPlace = document.querySelector('.popup__form_place');
-const popup = document.querySelectorAll('.popup');
-const popupContainer =  document.querySelectorAll('.popup__container');
+const popups = document.querySelectorAll('.popup');
 
 // закрытие попапа на esc
 
-document.addEventListener('keydown', (evt) => {
-    console.log(evt.keycode);
+function closeByEscape(evt) {
     if (evt.key === 'Escape') {
-        popup.forEach( (items) => {
-            items.classList.remove('popup_opened');
-        });
+      const openedPopup = document.querySelector('.popup_opened');
+      closePopup(openedPopup);
     };
-});
+  };
+  
+  document.addEventListener('keydown', closeByEscape);
 
 //закрытие на оверлей
 
-const popupContainerChildNodes = popupContainer.forEach((items) => {
-    return items.childNodes;
-})
-
-popup.forEach( (iti) => {
-    iti.addEventListener('click', (evt) => {
-        if (evt.target.classList.contains('popup')) {
-            iti.classList.remove('popup_opened');
+popups.forEach((popup) => {
+    popup.addEventListener('mousedown', (evt) => {
+        if (evt.target.classList.contains('popup_opened')) {
+            closePopup(popup)
         }
-    })
+        if (evt.target.classList.contains('popup__close')) {
+          closePopup(popup)
+        }
+    });
 });
 
-//открытие и закрытие popup
+//открытие popups
 
 buttonOpenEditProfilePopup.addEventListener('click', function () {
     userName.value = name.textContent;
     aboutMe.value = subtitle.textContent;
     openPopup(popupProfile);
-});
-
-closeButtons.forEach(function(item) {
-    item.addEventListener('click', function() {
-        popup.forEach((items) => items.classList.remove('popup_opened'));
-    });
 });
 
 addButton.addEventListener('click', function () {

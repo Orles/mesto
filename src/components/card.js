@@ -5,6 +5,7 @@ const inputTitle = document.querySelector('.popup__input_title');
 const inputLink = document.querySelector('.popup__input_link');
 const picturePopupPlace = popupImg.querySelector('.popup__img');
 const titlePopupPlace = popupImg.querySelector('.popup__subtitle');
+const popupPlace = document.querySelector('.popup_place');
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
