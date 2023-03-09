@@ -14,17 +14,6 @@ const formEditProfilePopup = document.querySelector('.popup__form_name');
 const formPlace = document.querySelector('.popup__form_place');
 const popups = document.querySelectorAll('.popup');
 
-// закрытие попапа на esc
-
-function closeByEscape(evt) {
-    if (evt.key === 'Escape') {
-      const openedPopup = document.querySelector('.popup_opened');
-      closePopup(openedPopup);
-    };
-  };
-  
-  document.addEventListener('keydown', closeByEscape);
-
 //закрытие на оверлей
 
 popups.forEach((popup) => {

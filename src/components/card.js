@@ -7,12 +7,21 @@ const picturePopupPlace = popupImg.querySelector('.popup__img');
 const titlePopupPlace = popupImg.querySelector('.popup__subtitle');
 const popupPlace = document.querySelector('.popup_place');
 
+function closeByEscape(evt) {
+    if (evt.key === 'Escape') {
+        const openedPopup = document.querySelector('.popup_opened');
+        closePopup(openedPopup);
+    };
+};
+
 function openPopup(popup) {
     popup.classList.add('popup_opened');
+    document.addEventListener('keydown', closeByEscape);
 };
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', closeByEscape);
 };
 
 
@@ -61,7 +70,7 @@ function createCard(imgUrl, title) {
     element.querySelector('.elements__delete').addEventListener('click', function () {
         element.querySelector('.elements__delete').closest('.elements__element').remove();
     });
-    element.querySelector('.elements__img-button').addEventListener('click', function() {
+    element.querySelector('.elements__img-button').addEventListener('click', function () {
         openPopup(popupImg);
         picturePopupPlace.src = imgUrl;
         picturePopupPlace.alt = title;
@@ -79,4 +88,4 @@ function addElement(evt) {
     closePopup(popupPlace);
 }
 
-export {sheetCards, addElement, openPopup, closePopup};
+export { sheetCards, addElement, openPopup, closePopup };
