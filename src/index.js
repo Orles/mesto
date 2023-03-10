@@ -13,6 +13,12 @@ const addButton = document.querySelector('.profile__add-button');
 const formEditProfilePopup = document.querySelector('.popup__form_name');
 const formPlace = document.querySelector('.popup__form_place');
 const popups = document.querySelectorAll('.popup');
+const popupSubmitButtons = document.querySelectorAll('.popup__submit-button');
+
+popupSubmitButtons.forEach((iti) => {
+    iti.classList.add('popup__submit-button_disabled');
+    iti.setAttribute('disabled', true);
+})
 
 //закрытие на оверлей
 

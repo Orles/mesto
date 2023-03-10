@@ -3,7 +3,7 @@ export const setting = {
     formSelector: '.popup__form',
     submitButtonSelector: '.popup__submit-button',
     inputErrorClass: 'popup__input-error',
-    button_disabled: 'popup__submit-button_disabled'
+    buttonDisabled: 'popup__submit-button_disabled'
 };
 
 
@@ -38,7 +38,7 @@ const setEventListeners = (formElement, setting) => {
     inputList.forEach((inputElement) => {
         inputElement.addEventListener('input', () => {
             isValid(formElement, inputElement, setting);
-            toggleButtonState(inputList, formElement, setting, evt);
+            toggleButtonState(inputList, formElement, setting);
         });
     });
 };
@@ -56,17 +56,17 @@ function hasInvalidInput(inputList) {
     })
 };
 
-function toggleButtonState(inputList, formElement, setting, evt) {
+function toggleButtonState(inputList, formElement, setting) {
     const submitButtons = formElement.querySelectorAll(setting.submitButtonSelector);
     if ((hasInvalidInput(inputList))) {
         submitButtons.forEach( iti => {
-            iti.classList.add(setting.button_disabled);
-            iti.setAttribute('disablet', true);
+            iti.classList.add(setting.buttonDisabled);
+            iti.setAttribute('disabled', true);
         })
     } else {
         submitButtons.forEach( iti => {
-            iti.removeAttribute('disablet');
-            iti.classList.remove(setting.button_disabled);
+            iti.removeAttribute('disabled');
+            iti.classList.remove(setting.buttonDisabled);
         })
     }
 };
