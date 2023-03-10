@@ -1,8 +1,9 @@
-const setting = {
+export const setting = {
     inputSelector: '.popup__input',
     formSelector: '.popup__form',
     submitButtonSelector: '.popup__submit-button',
-    inputErrorClass: '.popup__input-error'
+    inputErrorClass: 'popup__input-error',
+    button_disabled: 'popup__submit-button_disabled'
 };
 
 
@@ -25,10 +26,10 @@ const isValid = (formElement, inputElement, setting) => {
         inputElement.setCustomValidity("");
     };
 
-    if (!inputElement.validity.valid) {
-        showInputError(formElement, inputElement, inputElement.validationMessage);
+    if ((!inputElement.validity.valid)) {
+        showInputError(formElement, inputElement, inputElement.validationMessage, setting);
     } else {
-        hideInputError(formElement, inputElement);
+        hideInputError(formElement, inputElement, setting);
     };
 };
 
@@ -37,12 +38,12 @@ const setEventListeners = (formElement, setting) => {
     inputList.forEach((inputElement) => {
         inputElement.addEventListener('input', () => {
             isValid(formElement, inputElement, setting);
-            toggleButtonState(inputList, formElement, setting, inputElement);
+            toggleButtonState(inputList, formElement, setting, evt);
         });
     });
 };
 
-export const enableValidation = (setting) => {
+export function enableValidation(setting) {
     const formList = Array.from(document.querySelectorAll(setting.formSelector));
     formList.forEach((formElement) => {
         setEventListeners(formElement, setting);
@@ -55,17 +56,17 @@ function hasInvalidInput(inputList) {
     })
 };
 
-function toggleButtonState(inputList, formElement, setting, inputElement) {
+function toggleButtonState(inputList, formElement, setting, evt) {
     const submitButtons = formElement.querySelectorAll(setting.submitButtonSelector);
-    if ((hasInvalidInput(inputList))&&(inputElement.textContent === '')) {
+    if ((hasInvalidInput(inputList))) {
         submitButtons.forEach( iti => {
-            iti.classList.add('popup__submit-button_disabled');
+            iti.classList.add(setting.button_disabled);
             iti.setAttribute('disablet', true);
         })
     } else {
         submitButtons.forEach( iti => {
             iti.removeAttribute('disablet');
-            iti.classList.remove('popup__submit-button_disabled');
+            iti.classList.remove(setting.button_disabled);
         })
     }
 };

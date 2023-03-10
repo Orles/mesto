@@ -1,5 +1,5 @@
 import './index.css';
-import {enableValidation} from './components/validate.js';
+import {enableValidation, setting} from './components/validate.js';
 import {sheetCards, addElement, openPopup, closePopup} from './components/card.js';
 
 const userName = document.querySelector('.popup__input_firstname');
@@ -60,4 +60,4 @@ formPlace.addEventListener('submit', addElement);
 
 //валидность 
 
-enableValidation();
+enableValidation(setting);
