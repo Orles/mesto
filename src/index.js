@@ -15,11 +15,6 @@ const formPlace = document.querySelector('.popup__form_place');
 const popups = document.querySelectorAll('.popup');
 const popupSubmitButtons = document.querySelectorAll('.popup__submit-button');
 
-popupSubmitButtons.forEach((iti) => {
-    iti.classList.add('popup__submit-button_disabled');
-    iti.setAttribute('disabled', true);
-})
-
 //закрытие на оверлей
 
 popups.forEach((popup) => {
@@ -43,6 +38,10 @@ buttonOpenEditProfilePopup.addEventListener('click', function () {
 
 addButton.addEventListener('click', function () {
     openPopup(popupPlace);
+    popupSubmitButtons.forEach((iti) => {
+        iti.classList.add('popup__submit-button_disabled');
+        iti.setAttribute('disabled', true);
+    })
 });
 
 //изменеие имени 
