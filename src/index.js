@@ -1,6 +1,7 @@
 import './index.css';
-import {enableValidation, setting} from './components/validate.js';
-import {sheetCards, addElement, openPopup, closePopup} from './components/card.js';
+import {enableValidation, setting, addCards} from './components/validate.js';
+import {addElement, openPopup, closePopup, sheetCards} from './components/card.js';
+import {getNameAndSubtitle, takeВataProfile} from './components/api.js';
 
 const userName = document.querySelector('.popup__input_firstname');
 const aboutMe = document.querySelector('.popup__input_about-me');
@@ -51,17 +52,7 @@ function submitEditProfilePopup(evt) {
     evt.preventDefault();
     name.textContent = userName.value;
     subtitle.textContent = aboutMe.value;
-    fetch('https://nomoreparties.co/v1/plus-cohort-20/users/me', {
-        method: 'PATCH',
-        headers: {
-          authorization: 'f7ffe581-5207-41db-b3f5-5dadcd5e4cdf',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: name.textContent,
-          about: subtitle.textContent
-        })
-      }); 
+    getNameAndSubtitle(name.textContent, subtitle.textContent)
     closePopup(popupProfile);
 }
 
@@ -69,7 +60,7 @@ formEditProfilePopup.addEventListener('submit', submitEditProfilePopup);
 
 //6 карточек
 
-sheetCards();
+sheetCards(addCards);
 
 //добавление карточки
 
@@ -81,16 +72,6 @@ enableValidation(setting);
 
 // Загрузка информации о пользователе с сервера
 
-fetch('https://nomoreparties.co/v1/plus-cohort-20/users/me', {
-    headers: {
-      authorization: 'f7ffe581-5207-41db-b3f5-5dadcd5e4cdf'
-    }
-  })
-  .then(res => res.json())
-  .then((res) => {
-    name.textContent = res.name;
-    subtitle.textContent = res.about;
-    profileAvatar.src = res.avatar;
-  })
+takeВataProfile(name, subtitle, profileAvatar);
 
   // Редактирование профиля

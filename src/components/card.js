@@ -24,21 +24,10 @@ function closePopup(popup) {
     document.removeEventListener('keydown', closeByEscape);
 };
 
-function sheetCards() {
-    fetch('https://nomoreparties.co/v1/plus-cohort-20/cards', {
-        headers: {
-            authorization: 'f7ffe581-5207-41db-b3f5-5dadcd5e4cdf'
-        }
-    })
-        .then(res => res.json())
-        .then((data) => {
-            for (let item of data) {
-                const element = createCard(item.link, item.name);
-                element.querySelector('.elements__score').textContent = item.likes.length;
-                element.dataset.id = item._id;
-                elements.prepend(element);
-            };
-        })
+function sheetCards(add) {
+    if (add) {
+        add(createCard);
+    };
 };
 
 function createCard(imgUrl, title, deleteCards) {
@@ -59,7 +48,7 @@ function createCard(imgUrl, title, deleteCards) {
     if (deleteCards) {
         deleteCards(element);
     };
-    return  element;
+    return element;
 };
 
 
@@ -97,4 +86,4 @@ function addElement(evt) {
     closePopup(popupPlace);
 }
 
-export { sheetCards, addElement, openPopup, closePopup };
+export { addElement, openPopup, closePopup, sheetCards };
