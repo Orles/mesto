@@ -13,11 +13,11 @@
     </header>
     <main class="main">
         <section class="profile">
-            <img src="<%=require('./image/image.jpg')%>" alt="Профиль" class="profile__avatar">
+            <img src="" alt="Профиль" class="profile__avatar">
             <div class="profile__info">
-                <h1 class="profile__name">Жак-Ив Кусто</h1>
+                <h1 class="profile__name"></h1>
                 <button class="profile__edit-button" type="button"></button>
-                <p class="profile__subtitle">Исследователь океана</p>
+                <p class="profile__subtitle"></p>
             </div>
             <button class="profile__add-button" type="button"></button>
         </section>
@@ -67,11 +67,19 @@
             <button class="elements__img-button" type="button"><img src="" alt="" class="elements__mask-group"></button>
             <div class="elements__place">
                 <h2 class="elements__title"></h2>
+                <div class="elements__like-group">
                 <button class="profile__like" type="button"></button>
+                <p class="elements__score"></p>
+                </div>
             </div>
-            <button class="elements__delete" type="button"></button>
+            <button class="elements__delete elements__delete_none" type="button"></button>
         </div>
     </template>
+    <!-- <template id="delete">
+        <div class="delete__element">
+        <button class="elements__delete" type="button"></button>
+        </div>
+    </template> -->
     <div class="popup popup_imgs">
         <div class="popup__container">
             <button class="popup__close" type="button"></button>

@@ -14,6 +14,7 @@ const formEditProfilePopup = document.querySelector('.popup__form_name');
 const formPlace = document.querySelector('.popup__form_place');
 const popups = document.querySelectorAll('.popup');
 const popupSubmitButtons = document.querySelectorAll('.popup__submit-button');
+const profileAvatar = document.querySelector('.profile__avatar');
 
 //закрытие на оверлей
 
@@ -50,6 +51,17 @@ function submitEditProfilePopup(evt) {
     evt.preventDefault();
     name.textContent = userName.value;
     subtitle.textContent = aboutMe.value;
+    fetch('https://nomoreparties.co/v1/plus-cohort-20/users/me', {
+        method: 'PATCH',
+        headers: {
+          authorization: 'f7ffe581-5207-41db-b3f5-5dadcd5e4cdf',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name.textContent,
+          about: subtitle.textContent
+        })
+      }); 
     closePopup(popupProfile);
 }
 
@@ -66,3 +78,19 @@ formPlace.addEventListener('submit', addElement);
 //валидность 
 
 enableValidation(setting);
+
+// Загрузка информации о пользователе с сервера
+
+fetch('https://nomoreparties.co/v1/plus-cohort-20/users/me', {
+    headers: {
+      authorization: 'f7ffe581-5207-41db-b3f5-5dadcd5e4cdf'
+    }
+  })
+  .then(res => res.json())
+  .then((res) => {
+    name.textContent = res.name;
+    subtitle.textContent = res.about;
+    profileAvatar.src = res.avatar;
+  })
+
+  // Редактирование профиля

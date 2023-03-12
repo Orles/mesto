@@ -24,41 +24,24 @@ function closePopup(popup) {
     document.removeEventListener('keydown', closeByEscape);
 };
 
-
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
 function sheetCards() {
-    for (let i = 0; i < initialCards.length; i++) {
-        const card = createCard(initialCards[i].link, initialCards[i].name);
-        elements.prepend(card);
-    };
+    fetch('https://nomoreparties.co/v1/plus-cohort-20/cards', {
+        headers: {
+            authorization: 'f7ffe581-5207-41db-b3f5-5dadcd5e4cdf'
+        }
+    })
+        .then(res => res.json())
+        .then((data) => {
+            for (let item of data) {
+                const element = createCard(item.link, item.name);
+                element.querySelector('.elements__score').textContent = item.likes.length;
+                element.dataset.id = item._id;
+                elements.prepend(element);
+            };
+        })
 };
 
-function createCard(imgUrl, title) {
+function createCard(imgUrl, title, deleteCards) {
     const element = elementTemplate.querySelector('.elements__element').cloneNode(true);
     const img = element.querySelector('.elements__mask-group');
     img.src = imgUrl;
@@ -67,22 +50,48 @@ function createCard(imgUrl, title) {
     element.querySelector('.profile__like').addEventListener('click', function (evt) {
         evt.target.classList.toggle('profile__like_active');
     });
-    element.querySelector('.elements__delete').addEventListener('click', function () {
-        element.querySelector('.elements__delete').closest('.elements__element').remove();
-    });
     element.querySelector('.elements__img-button').addEventListener('click', function () {
         openPopup(popupImg);
         picturePopupPlace.src = imgUrl;
         picturePopupPlace.alt = title;
         titlePopupPlace.textContent = title;
     });
-    return element;
-}
+    if (deleteCards) {
+        deleteCards(element);
+    };
+    return  element;
+};
+
+
+
+function deleteElementsDelete(element) {
+    element.querySelector('.elements__delete').classList.remove('elements__delete_none');
+    element.querySelector('.elements__delete').addEventListener('click', function () {
+        element.querySelector('.elements__delete').closest('.elements__element').remove();
+        fetch(`https://nomoreparties.co/v1/plus-cohort-20/cards/${element.dataset.id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: 'f7ffe581-5207-41db-b3f5-5dadcd5e4cdf',
+            },
+        })
+    });
+};
 
 function addElement(evt) {
     evt.preventDefault();
-    const card = createCard(inputLink.value, inputTitle.value);
+    let card = createCard(inputLink.value, inputTitle.value, deleteElementsDelete);
     elements.prepend(card);
+    fetch('https://nomoreparties.co/v1/plus-cohort-20/cards', {
+        method: 'POST',
+        headers: {
+            authorization: 'f7ffe581-5207-41db-b3f5-5dadcd5e4cdf',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: inputTitle.value,
+            link: inputLink.value
+        })
+    });
     inputTitle.value = '';
     inputLink.value = '';
     closePopup(popupPlace);
